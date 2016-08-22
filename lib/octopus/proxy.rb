@@ -395,8 +395,8 @@ module Octopus
 
     def connection_pool_for(adapter, config)
       if Octopus.rails5?
-        adapter_method = "#{adapter}_connection"
-        arg = ActiveRecord::ConnectionAdapters::ConnectionSpecification.new(adapter.dup, config, adapter_method)
+        adapter_method = "#{adapter[:adapter]}_connection"
+        arg = ActiveRecord::ConnectionAdapters::ConnectionSpecification.new(config, adapter.dup, adapter_method)
       elsif Octopus.rails4?
         arg = ActiveRecord::ConnectionAdapters::ConnectionSpecification.new(adapter.dup, config)
       else
