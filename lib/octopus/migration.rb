@@ -19,7 +19,7 @@ module Octopus
     def self.included(base)
       base.extend(ClassMethods)
 
-      base.alias_method_chain :announce, :octopus
+      base.legacy_alias_method_chain :announce, :octopus
       base.class_attribute :current_shard, :current_group, :current_group_specified, :instance_reader => false, :instance_writer => false
     end
 
@@ -64,16 +64,16 @@ module Octopus
 
       base.class_eval do
         class << self
-          alias_method_chain :migrate, :octopus
-          alias_method_chain :up, :octopus
-          alias_method_chain :down, :octopus
-          alias_method_chain :run, :octopus
+          legacy_alias_method_chain :migrate, :octopus
+          legacy_alias_method_chain :up, :octopus
+          legacy_alias_method_chain :down, :octopus
+          legacy_alias_method_chain :run, :octopus
         end
       end
 
-      base.alias_method_chain :run, :octopus
-      base.alias_method_chain :migrate, :octopus
-      base.alias_method_chain :migrations, :octopus
+      base.legacy_alias_method_chain :run, :octopus
+      base.legacy_alias_method_chain :migrate, :octopus
+      base.legacy_alias_method_chain :migrations, :octopus
     end
 
     def run_with_octopus(&block)
@@ -151,7 +151,7 @@ end
 module Octopus
   module UnknownMigrationVersionError
     def self.included(base)
-      base.alias_method_chain :initialize, :octopus
+      base.legacy_alias_method_chain :initialize, :octopus
       base.send(:attr_accessor, :version)
     end
 

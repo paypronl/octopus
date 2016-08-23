@@ -45,7 +45,7 @@ If you are trying to scope everything to a specific shard, use Octopus.using ins
         base.send(:alias_method, :equality_without_octopus, :==)
         base.send(:alias_method, :==, :equality_with_octopus)
         base.send(:alias_method, :eql?, :==)
-        base.send(:alias_method_chain, :perform_validations, :octopus)
+        base.send(:legacy_alias_method_chain, :perform_validations, :octopus)
       end
 
       def set_current_shard
@@ -111,13 +111,13 @@ If you are trying to scope everything to a specific shard, use Octopus.using ins
         class << self
           attr_accessor :custom_octopus_table_name
 
-          alias_method_chain :connection, :octopus
-          alias_method_chain :connection_pool, :octopus
-          alias_method_chain :clear_all_connections!, :octopus
-          alias_method_chain :clear_active_connections!, :octopus
-          alias_method_chain :connected?, :octopus
+          legacy_alias_method_chain :connection, :octopus
+          legacy_alias_method_chain :connection_pool, :octopus
+          legacy_alias_method_chain :clear_all_connections!, :octopus
+          legacy_alias_method_chain :clear_active_connections!, :octopus
+          legacy_alias_method_chain :connected?, :octopus
 
-          alias_method_chain(:set_table_name, :octopus) if Octopus.rails3?
+          legacy_alias_method_chain(:set_table_name, :octopus) if Octopus.rails3?
 
           def table_name=(value = nil)
             self.custom_octopus_table_name = true
